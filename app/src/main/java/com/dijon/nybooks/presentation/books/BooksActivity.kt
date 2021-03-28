@@ -2,6 +2,9 @@ package com.dijon.nybooks.presentation.books
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dijon.nybooks.R
@@ -20,19 +23,18 @@ class BooksActivity : AppCompatActivity() {
         binding.toolbarMain.title = getString(R.string.books_title)
         setSupportActionBar(binding.toolbarMain)
 
-        with(binding.recyclerBooks) {
-            layoutManager = LinearLayoutManager(this@BooksActivity, RecyclerView.VERTICAL, false)
-            setHasFixedSize(true)
-            adapter = BooksAdapter(getBooks())
-        }
-    }
+        val viewModel: BooksViewModel = ViewModelProviders.of(this).get(BooksViewModel::class.java)
 
-    private fun getBooks(): List<Book> {
-        return listOf(
-                Book("Primeiro Livro", "Dijon 1"),
-                Book("Segundo Livro", "Dijon 2"),
-                Book("Terceiro Livro", "Dijon 3"),
-                Book("Quarto Livro", "Dijon 51")
-                )
+        viewModel.booksLiveData.observe(this, Observer {
+            it?.let { books ->
+                with(binding.recyclerBooks) {
+                    layoutManager =
+                        LinearLayoutManager(this@BooksActivity, RecyclerView.VERTICAL, false)
+                    setHasFixedSize(true)
+                    adapter = BooksAdapter(books)
+                }
+            }
+        })
+        viewModel.getBooks()
     }
 }
