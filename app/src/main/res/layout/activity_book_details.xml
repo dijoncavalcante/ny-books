@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -16,8 +15,10 @@
         android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/bookDetailsTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:lineSpacingExtra="5dp"
         android:text="@string/book_details_title_label"
         android:textColor="#000"
         tools:text="Título 1" />
@@ -30,8 +31,10 @@
         android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/bookDetailsDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:lineSpacingExtra="5dp"
         android:text="@string/book_details_title_label"
         android:textColor="#000"
         tools:text="Descrioption 1" />

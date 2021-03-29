@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dijon.nybooks.R
 import com.dijon.nybooks.data.model.Book
 import com.dijon.nybooks.databinding.ActivityBooksBinding
+import com.dijon.nybooks.presentation.details.BookDetailsActivity
 
 class BooksActivity : AppCompatActivity() {
 
@@ -31,7 +32,10 @@ class BooksActivity : AppCompatActivity() {
                     layoutManager =
                         LinearLayoutManager(this@BooksActivity, RecyclerView.VERTICAL, false)
                     setHasFixedSize(true)
-                    adapter = BooksAdapter(books)
+                    adapter = BooksAdapter(books){book ->
+                        val intent = BookDetailsActivity.getStartIntent(this@BooksActivity, book.title, book.description)
+                        this@BooksActivity.startActivity(intent)
+                    }
                 }
             }
         })
