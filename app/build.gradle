@@ -34,10 +34,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-
 }
 
 dependencies {
+    def retrofit_version = "2.6.0"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
@@ -53,4 +53,8 @@ dependencies {
 
     //implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0'
     implementation 'android.arch.lifecycle:extensions:1.1.1'
+
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
+
 }
