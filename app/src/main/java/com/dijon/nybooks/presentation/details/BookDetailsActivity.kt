@@ -7,21 +7,24 @@ import androidx.appcompat.app.AppCompatActivity
 import com.dijon.nybooks.R
 import com.dijon.nybooks.databinding.ActivityBookDetailsBinding
 import com.dijon.nybooks.databinding.ActivityBooksBinding
+import com.dijon.nybooks.presentation.base.BaseActivity
 
-class BookDetailsActivity : AppCompatActivity() {
+class BookDetailsActivity : BaseActivity() {
 
-    lateinit var binding: ActivityBookDetailsBinding
+    lateinit var bindingDetails: ActivityBookDetailsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityBookDetailsBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        bindingDetails = ActivityBookDetailsBinding.inflate(layoutInflater)
+        setContentView(bindingDetails.root)
+
+        setupToolbar(bindingDetails.layoutInclude.toolbarMain, R.string.books_details)
 
         val title = intent.getStringExtra(EXTRA_TITLE)
         val description = intent.getStringExtra(EXTRA_DESCRIPTION)
 
-        binding.bookDetailsTitle.text = title
-        binding.bookDetailsDescription.text = description
+        bindingDetails.bookDetailsTitle.text = title
+        bindingDetails.bookDetailsDescription.text = description
     }
 
     companion object {
