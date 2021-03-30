@@ -2,6 +2,7 @@ package com.dijon.nybooks.presentation.books
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.dijon.nybooks.R
 import com.dijon.nybooks.data.ApiService
 import com.dijon.nybooks.data.model.Book
 import com.dijon.nybooks.data.response.BookBodyResponse
@@ -12,6 +13,7 @@ import retrofit2.Response
 class BooksViewModel : ViewModel() {
 
     val booksLiveData: MutableLiveData<List<Book>> = MutableLiveData()
+    val viewFlipperLiveData: MutableLiveData<Pair<Int, Int?>> = MutableLiveData()
 
     fun getBooks() {
         ApiService.service.getBooks().enqueue(object : Callback<BookBodyResponse> {
@@ -19,28 +21,40 @@ class BooksViewModel : ViewModel() {
                 call: Call<BookBodyResponse>,
                 response: Response<BookBodyResponse>
             ) {
-                if (response.isSuccessful) {
-                    val books: MutableList<Book> = mutableListOf()
+                when {
+                    response.isSuccessful -> {
+                        val books: MutableList<Book> = mutableListOf()
 
-                    response.body()?.let { bookBodyResponse ->
-                        for (result in bookBodyResponse.bookResults) {
-                            val book = Book(
-                                title = result.bookDetailResponse[0].title,
-                                author = result.bookDetailResponse[0].author,
-                                description = result.bookDetailResponse[0].description
-                            )
-
-                            books.add(book)
+                        response.body()?.let { bookBodyResponse ->
+                            for (result in bookBodyResponse.bookResults) {
+                                val book = result.bookDetailResponse[0].getBookModel()
+                                books.add(book)
+                            }
                         }
+                        booksLiveData.value = books
+                        viewFlipperLiveData.value = Pair(VIEW_FLIPPER_BOOKS, null)
                     }
-                    booksLiveData.value = books
+                    response.code() == 401 -> {
+                        viewFlipperLiveData.value =
+                            Pair(VIEW_FLIPPER_ERROR, R.string.books_error_400_generic)
+                    }
+                    else -> {
+                        viewFlipperLiveData.value =
+                            Pair(VIEW_FLIPPER_ERROR, R.string.books_error_400_generic)
+                    }
                 }
             }
 
             override fun onFailure(call: Call<BookBodyResponse>, t: Throwable) {
-                TODO("Not yet implemented")
+                viewFlipperLiveData.value =
+                    Pair(VIEW_FLIPPER_ERROR, R.string.books_error_500_generic)
             }
 
         })
+    }
+
+    companion object {
+        private const val VIEW_FLIPPER_BOOKS = 1
+        private const val VIEW_FLIPPER_ERROR = 2
     }
 }

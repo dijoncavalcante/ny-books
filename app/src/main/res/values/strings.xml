@@ -3,6 +3,9 @@
 
     <!--    Books Activity-->
     <string name="books_title">Books</string>
+    <string name="books_error_401">Access denied.</string>
+    <string name="books_error_400_generic">Unhandled error.</string>
+    <string name="books_error_500_generic">Catastrophic error</string>
     <string name="books_details">Book Details</string>
     <string name="book_details_title_label">Titulo</string>
     <string name="book_details_description_label">Description</string>

@@ -3,10 +3,8 @@ package com.dijon.nybooks.presentation.details
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import com.dijon.nybooks.R
 import com.dijon.nybooks.databinding.ActivityBookDetailsBinding
-import com.dijon.nybooks.databinding.ActivityBooksBinding
 import com.dijon.nybooks.presentation.base.BaseActivity
 
 class BookDetailsActivity : BaseActivity() {

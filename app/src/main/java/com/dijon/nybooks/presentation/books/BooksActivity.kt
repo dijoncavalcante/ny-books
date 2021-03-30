@@ -25,9 +25,6 @@ class BooksActivity : BaseActivity() {
 
         setupToolbar(binding.includeLayout.toolbarMain, R.string.books_title)
 
-//        binding.includeLayout.toolbarMain.title = getString(R.string.books_title)
-//        setSupportActionBar(binding.includeLayout.toolbarMain)
-
         val viewModel: BooksViewModel = ViewModelProviders.of(this).get(BooksViewModel::class.java)
 
         viewModel.booksLiveData.observe(this, Observer {
@@ -46,6 +43,18 @@ class BooksActivity : BaseActivity() {
                     }
                 }
             }
+        })
+
+        viewModel.viewFlipperLiveData.observe(this, Observer {
+            it?.let { viewFlipper ->
+                binding.viewFliperBooks.displayedChild = viewFlipper.first
+
+                viewFlipper.second?.let { errorMessageResId ->
+                    binding.textViewError.text = getString(errorMessageResId)
+                }
+            }
+
+
         })
         viewModel.getBooks()
     }
