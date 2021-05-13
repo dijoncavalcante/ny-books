@@ -14,5 +14,6 @@ This project use the follow technologies and tools:
 - [Retrofit](https://square.github.io/retrofit/) - Retrofit is the class through which your API interfaces are turned into callable objects.
 - [Moshi](https://github.com/square/moshi/) - Moshi is a modern JSON library for Android and Java.
 - [MVVM Architecture](https://medium.com/upday-devs/android-architecture-patterns-part-3-model-view-viewmodel-e7eeee76b73b) - Model-View-ViewModel Pattern.
-- [Mockito](https://developer.android.com/training/testing/unit-testing/local-unit-tests#java) - f your test needs to interact with Android dependencies, include the Mockito library to simplify your local unit tests.
+- [Mockito](https://developer.android.com/training/testing/unit-testing/local-unit-tests#java) - If your test needs to interact with Android dependencies, include the Mockito library to simplify your local unit tests.
+
 [For mode details click here](https://developer.android.com/jetpack/)
